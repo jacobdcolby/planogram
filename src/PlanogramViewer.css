@@ -1,0 +1,464 @@
+/* PlanogramViewer.css */
+@font-face {
+  font-family: Inter;
+  src: url(/fonts/Inter.ttf);
+}
+@font-face {
+  font-family: 'DSG Black';
+  src: url('/fonts/United Sans Reg-Black.otf');
+}
+@font-face {
+  font-family: 'DSG Bold';
+  src: url('/fonts/United Sans Reg-Bold.otf');
+}
+@font-face {
+  font-family: 'DSG Heavy';
+  src: url('/fonts/United Sans Reg-Heavy.otf');
+}
+@font-face {
+  font-family: 'DSG Light';
+  src: url('/fonts/United Sans Reg-Light.otf');
+}
+@font-face {
+  font-family: 'DSG Medium';
+  src: url('/fonts/United Sans Reg-Medium.otf');
+}
+
+/* --- CSS Custom Properties for Colors --- */
+:root {
+  /* Brand Colors */
+  --dicks-primary: #006554;
+  --dicks-secondary: #bb5811;
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #33353b;
+  --text-muted: #bdc3ce;
+  --text-subtle: #718096;
+  --text-error: red;
+  --text-button-primary: #ffffff;
+
+  /* Background Colors */
+  --bg-page: #006554;
+  --bg-panel: #f7fafc;
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+  --bg-button-hover: #f7fafc;
+  --bg-selected-item: #ffffff;
+  --bg-footer-config: #ffffff;
+  --bg-footer-sticky: #ffffff;
+  --bg-sticky-footer-info: #f7fafc;
+  --bg-button-action: #bb5811;
+  --bg-button-action-hover: #d37734;
+
+
+  /* Border Colors */
+  --border-panel: #e2e8f0;
+  --border-input: #cbd5e0;
+  --border-input-focus: #4299e1;
+  --border-item-hover: #cbd5e0;
+  --border-selected-item: #718096;
+  --border-footer-sticky-top: #dde0e3;
+  --border-barcode-dashed: #cbd5e0;
+
+  /* Icon Colors */
+  --icon-primary: #1a202c;
+  --icon-search: #a0aec0;
+
+  /* Shadow Colors (using rgba for opacity) */
+  --shadow-panel-color: rgba(0, 0, 0, 0.1);
+  --shadow-panel-subtle-color: rgba(0, 0, 0, 0.06);
+  --shadow-sticky-footer-color: rgba(0, 0, 0, 0.08);
+  --shadow-input-focus-ring: #4299e1;
+
+  /* Scrollbar Colors */
+  --scrollbar-thumb: #bdc3ce;
+  --scrollbar-track: #ffffff;
+}
+
+/* --- Global & Page Structure --- */
+html, body {
+	height: 100%;
+	background-color: var(--bg-page) !important;
+}
+
+html {
+	display: table;
+	margin: auto;
+}
+
+body {
+	display: table-cell;
+	vertical-align: middle;
+	font-family: Inter, Helvetica, Arial, sans-serif;
+	margin: 0;
+	background-color: var(--bg-page);
+	color: var(--text-secondary);
+	line-height: 1.5;
+}
+
+.planogram-viewer-container {
+	min-height: 100vh;
+	box-sizing: border-box;
+  margin: 0 20px;
+}
+
+.content-wrapper {
+  min-width: 90vw;
+	margin: 0 auto;
+  padding-bottom: 120px;
+}
+
+.loading-state,
+.error-state {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-size: 1.2em;
+}
+.error-state p {
+	color: var(--text-error);
+}
+
+/* --- Header --- */
+.viewer-header {
+	margin-bottom: 30px;
+	text-align: left;
+}
+.viewer-title {
+    font-family: DSG Heavy, Inter, Helvetica, sans-serif;
+	font-size: 2em;
+	font-weight: bold;
+    margin-top: 40px;
+	margin-bottom: 0;
+	color: var(--text-primary);
+}
+.viewer-subtitle {
+	font-size: 0.9em;
+    font-weight: 300;
+	color: var(--text-primary);
+    margin: 0;
+}
+
+/* --- Panels Layout --- */
+.panels-area {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .panels-area {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.panel {
+	background-color: var(--bg-panel);
+	border: 1px solid var(--border-panel);
+	border-radius: 6px;
+	padding: 20px;
+	box-shadow: 0 1px 3px 0 var(--shadow-panel-color), 0 1px 2px 0 var(--shadow-panel-subtle-color);
+}
+.panel-title {
+    font-family: DSG Bold;
+	font-size: 1.25em;
+	font-weight: 600;
+	margin: 0 0 15px 0;
+	display: flex;
+	align-items: center;
+	color: var(--text-secondary);
+}
+.panel-icon {
+	margin-right: 8px;
+	color: var(--icon-primary);
+}
+
+/* --- Search --- */
+.search-container {
+	position: relative;
+	margin-bottom: 15px;
+}
+.search-icon {
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--icon-search);
+}
+.search-input {
+	width: 100%;
+	padding: 10px 10px 10px 35px;
+	border: 1px solid var(--border-input);
+	border-radius: 6px;
+	font-size: 0.9em;
+  font-family: Inter, Helvetica;
+	box-sizing: border-box;
+	background-color: var(--bg-input);
+  color: var(--text-secondary);
+}
+.search-input::placeholder {
+  font-family: Inter, Helvetica;
+	color: var(--text-subtle);
+}
+.search-input:focus {
+	outline: none;
+	border-color: var(--border-input-focus);
+	box-shadow: 0 0 0 1px var(--shadow-input-focus-ring);
+}
+
+/* --- Items List (for CONFIGs and Styles) --- */
+.config-panel .items-list {
+  max-height: 246px;
+}
+.styles-panel .items-list {
+  max-height: 300px;
+}
+.items-list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative; /* Needed for the ::after pseudo-element */
+
+  /* --- Hide scrollbar --- */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;  /* For Internet Explorer and Edge (older versions) */
+}
+
+.items-list::-webkit-scrollbar {
+  display: none; /* For WebKit browsers (Chrome, Safari, Edge, new Edge, Opera) */
+  /* width: 0; /* Alternative for WebKit if display:none is problematic */
+  /* height: 0; */
+}
+
+/* Fade-out effect at the bottom to indicate scrollability */
+.items-list::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px; /* Height of the fade effect */
+  /* Gradient from transparent to the panel background color */
+  /* Uses the --bg-panel variable you defined, assuming items have this background or panel bg shows through */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--bg-panel) 80%);
+  pointer-events: none; /* Allows clicking/scrolling "through" the gradient overlay */
+  border-radius: 0 0 6px 6px; /* Match bottom border-radius of the items-list or panel if it's visible */
+                               /* This depends on how your items-list sits within the panel */
+}
+
+
+.config-panel .items-list {
+  height: 246px; /* Your existing style - this helps show partial items */
+}
+
+.styles-panel .items-list {
+  height: 300px; /* Your existing style - this helps show partial items */
+}
+
+.item-button {
+	display: block;
+	width: 100%;
+	text-align: left;
+	text-overflow: ellipsis;
+	padding: 10px;
+	border: 1px solid var(--border-panel);
+	border-radius: 6px;
+	background-color: var(--bg-card);
+	cursor: pointer;
+	transition: background-color 0.2s, border-color 0.2s;
+}
+.item-button:hover {
+	background-color: var(--bg-button-hover);
+	border-color: var(--border-item-hover);
+}
+.item-button:focus,
+.item-button:focus-visible {
+	outline: none;
+}
+.item-button.selected {
+	background-color: var(--bg-selected-item);
+	border-color: var(--border-selected-item);
+	color: var(--text-secondary);
+}
+.item-button.selected .item-main-text,
+.item-button.selected .style-item-name,
+.item-button.selected .style-item-p-number,
+.item-button.selected .item-detail-text,
+.item-button.selected .item-sub-text {
+	color: var(--text-secondary);
+}
+.item-button.selected .style-item-p-number {
+    font-weight: 800;
+}
+
+/* CONFIG Item specific text styling */
+.config-item .item-main-text {
+	font-weight: 600;
+	font-size: 0.9em;
+	color: var(--text-secondary);
+	margin-bottom: 2px;
+}
+.config-item .item-detail-text {
+	font-size: 0.8em;
+	color: var(--text-subtle);
+}
+.item-sub-text { /* Generic style */
+	font-size: 0.8em;
+	color: var(--text-subtle);
+	margin-bottom: 2px;
+	overflow-x: hidden;
+}
+
+/* Style Item specific styles */
+.style-item-layout-container {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+.style-item-p-number {
+  flex-shrink: 0;
+  font-size: 0.9em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+.style-item-p-number span {
+    display: block;
+}
+.style-item-info-group {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  justify-content: center;
+}
+.style-item-name {
+  font-weight: 600;
+  font-size: 0.9;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+.item-brand-text {
+  font-size: 0.8em;
+  color: var(--dicks-secondary);
+  font-weight: 600;
+  word-break: break-word;
+}
+.style-item-code {
+  font-weight: 500;
+  font-size: 0.8em;
+  color: var(--text-subtle);
+  word-break: break-word;
+}
+
+.empty-list-message,
+.panel-placeholder {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+  color: var(--text-subtle);
+}
+
+/* --- Sticky Barcode Footer --- */
+.sticky-barcode-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--bg-footer-sticky);
+  border-top: 1px solid var(--border-footer-sticky-top);
+  box-shadow: 0 -2px 8px var(--shadow-sticky-footer-color);
+  padding: 12px 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-style-info {
+  text-align: left;
+  flex-grow: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.footer-style-name {
+  font-weight: 600;
+  font-size: 1em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer-style-upc {
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer-style-code {
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--text-subtle);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer-barcode-image-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-barcode-svg {
+  display: block;
+  max-height: 55px;
+}
+
+/* --- Footer Details (selected config footer) --- */
+.footer-page-info {
+  flex-grow: 1;
+  text-align: left;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.view-on-planogram-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-family: Inter, Helvetica;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--text-button-primary);
+  background-color: var(--bg-button-action);
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.view-on-planogram-button:hover {
+  background-color: var(--bg-button-action-hover);
+  color: var(--text-button-primary);
+}
