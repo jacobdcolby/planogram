@@ -215,38 +215,34 @@ body {
 .styles-panel .items-list {
   max-height: 300px;
 }
+.items-list-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
 .items-list {
   overflow-y: auto;
+  max-height: 300px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  position: relative; /* Needed for the ::after pseudo-element */
 
-  /* --- Hide scrollbar --- */
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none;  /* For Internet Explorer and Edge (older versions) */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
 .items-list::-webkit-scrollbar {
-  display: none; /* For WebKit browsers (Chrome, Safari, Edge, new Edge, Opera) */
-  /* width: 0; /* Alternative for WebKit if display:none is problematic */
-  /* height: 0; */
+  display: none;
 }
 
-/* Fade-out effect at the bottom to indicate scrollability */
-.items-list::after {
+.items-list-wrapper::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 30px; /* Height of the fade effect */
-  /* Gradient from transparent to the panel background color */
-  /* Uses the --bg-panel variable you defined, assuming items have this background or panel bg shows through */
+  height: 30px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--bg-panel) 80%);
-  pointer-events: none; /* Allows clicking/scrolling "through" the gradient overlay */
-  border-radius: 0 0 6px 6px; /* Match bottom border-radius of the items-list or panel if it's visible */
-                               /* This depends on how your items-list sits within the panel */
+  pointer-events: none;
 }
 
 

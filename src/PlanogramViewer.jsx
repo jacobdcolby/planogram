@@ -120,21 +120,23 @@ const PlanogramViewer = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              <div className="items-list config-items-list">
-                {filteredConfigs.length > 0 ? filteredConfigs.map((config) => (
-                  <button
-                    key={config.core_id}
-                    onClick={() => handleConfigSelect(config)}
-                    className={`item-button config-item ${
-                      selectedConfig?.core_id === config.core_id ? 'selected' : ''
-                    }`}
-                  >
-                    <div className="item-main-text">{config.planogramTitle}</div>
-                    <div className="item-detail-text">
-                      {config.merchandisedStyles.length} styles
-                    </div>
-                  </button>
-                )) : <p className="empty-list-message">No layouts found.</p>}
+              <div className="items-list-wrapper">
+                <div className="items-list config-items-list">
+                  {filteredConfigs.length > 0 ? filteredConfigs.map((config) => (
+                    <button
+                      key={config.core_id}
+                      onClick={() => handleConfigSelect(config)}
+                      className={`item-button config-item ${
+                        selectedConfig?.core_id === config.core_id ? 'selected' : ''
+                      }`}
+                    >
+                      <div className="item-main-text">{config.planogramTitle}</div>
+                      <div className="item-detail-text">
+                        {config.merchandisedStyles.length} styles
+                      </div>
+                    </button>
+                  )) : <p className="empty-list-message">No layouts found.</p>}
+                </div>
               </div>
             </div>
           </div>
@@ -147,32 +149,34 @@ const PlanogramViewer = () => {
                 Styles
               </h2>
               {selectedConfig ? (
-                <div className="items-list style-items-list">
-                  {selectedConfig.merchandisedStyles.map((style) => (
-                    <button
-                      key={style.UPC}
-                      onClick={() => handleStyleSelect(style)}
-                      className={`item-button style-item ${
-                        selectedStyle?.UPC === style.UPC ? 'selected' : ''
-                      }`}
-                    >
-                      <div className="style-item-layout-container">
-                        {style["P#"] && (
-                          // Added span back for consistency with CSS for vertical centering
-                          <div className="style-item-p-number"><span>{style["P#"]}</span></div>
-                        )}
-                        <div className="style-item-info-group">
-                          {style.NAME && (
-                            <div className="style-item-name">{style.NAME}</div>
+                <div className="items-list-wrapper">
+                  <div className="items-list style-items-list">
+                    {selectedConfig.merchandisedStyles.map((style) => (
+                      <button
+                        key={style.UPC}
+                        onClick={() => handleStyleSelect(style)}
+                        className={`item-button style-item ${
+                          selectedStyle?.UPC === style.UPC ? 'selected' : ''
+                        }`}
+                      >
+                        <div className="style-item-layout-container">
+                          {style["P#"] && (
+                            // Added span back for consistency with CSS for vertical centering
+                            <div className="style-item-p-number"><span>{style["P#"]}</span></div>
                           )}
-                          {style.BRAND && ( // Brand is still in data, just not shown in sticky footer
-                            <div className="item-brand-text">{style.BRAND}</div>
-                          )}
-                          <div className="style-item-code">{style["STYLE #"]}</div>
+                          <div className="style-item-info-group">
+                            {style.NAME && (
+                              <div className="style-item-name">{style.NAME}</div>
+                            )}
+                            {style.BRAND && ( // Brand is still in data, just not shown in sticky footer
+                              <div className="item-brand-text">{style.BRAND}</div>
+                            )}
+                            <div className="style-item-code">{style["STYLE #"]}</div>
+                          </div>
                         </div>
-                      </div>
-                    </button>
-                  ))}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               ) : (
                 <div className="panel-placeholder">
