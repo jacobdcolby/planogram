@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Search, Package, BarChart3 } from 'lucide-react';
 import JsBarcode from 'jsbarcode';
 import './PlanogramViewer.css';
-const PDF_REFERENCE_FILENAME = "Summer2025FootwearPlanogram.pdf";
+const PDF_REFERENCE_FILENAME = "planogram/Summer2025FootwearPlanogram.pdf";
 
 const PlanogramViewer = () => {
   const [planogramData, setPlanogramData] = useState([]);
@@ -181,12 +181,19 @@ const PlanogramViewer = () => {
               )}
             </div>
           </div>
-
-          {/* Original UPC Barcode Panel is REMOVED from the grid */}
         </div>
 
         {selectedConfig && (
           <footer className="selected-config-details-footer">
+            <a
+              href={`${import.meta.env.BASE_URL}${PDF_REFERENCE_FILENAME}#page=18`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="view-on-planogram-button"
+              title="View Floorplan (Page 18)"
+            >
+              View Floorplan
+            </a>
             {selectedConfig.sourcePageNumbers && selectedConfig.sourcePageNumbers.length > 0 && (
               <a
                 href={`${import.meta.env.BASE_URL}${PDF_REFERENCE_FILENAME}#page=${selectedConfig.sourcePageNumbers[0]}`}
